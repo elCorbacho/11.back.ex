@@ -47,6 +47,35 @@ class Cliente {
         return $stmt->rowCount() > 0 ? self::find($id) : null;
     }
 
+    public static function patch($id, $data) {
+        $db = Database::connect();
+        $camposValidos = [
+            'nombre_comercial',
+            'rut',
+            'direccion',
+            'categoria',
+            'contacto_nombre',
+            'contacto_email',
+            'porcentaje_oferta'
+        ];
+        $set = [];
+        $params = [];
+        foreach ($camposValidos as $campo) {
+            if (array_key_exists($campo, $data)) {
+                $set[] = "$campo = ?";
+                $params[] = $data[$campo];
+            }
+        }
+        if (empty($set)) {
+            return null; // Nada para actualizar
+        }
+        $params[] = $id;
+        $sql = "UPDATE clientes SET " . implode(', ', $set) . " WHERE id = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->rowCount() > 0 ? self::find($id) : null;
+    }
+
     public static function delete($id) {
         $db = Database::connect();
         $stmt = $db->prepare("DELETE FROM clientes WHERE id = ?");

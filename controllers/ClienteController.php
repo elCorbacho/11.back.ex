@@ -113,10 +113,59 @@ class ClienteController {
         }
     }
 
+    public static function patch($id) {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if ($data === null || !is_array($data)) {
+            ResponseHelper::json([
+                "error" => "El cuerpo de la petición no es un JSON válido"
+            ], 400);
+            return;
+        }
+
+        // Solo permite campos válidos
+        $camposValidos = [
+            'nombre_comercial',
+            'rut',
+            'direccion',
+            'categoria',
+            'contacto_nombre',
+            'contacto_email',
+            'porcentaje_oferta'
+        ];
+        $actualizar = array_intersect_key($data, array_flip($camposValidos));
+        if (empty($actualizar)) {
+            ResponseHelper::json([
+                "error" => "No se enviaron campos válidos para actualizar"
+            ], 400);
+            return;
+        }
+
+        try {
+            $actualizado = Cliente::patch($id, $actualizar);
+            if ($actualizado) {
+                ResponseHelper::json($actualizado);
+            } else {
+                ResponseHelper::error("No se pudo actualizar el cliente o no hubo cambios", 400);
+            }
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                ResponseHelper::error("El RUT ya existe en la base de datos", 409);
+            } else {
+                ResponseHelper::error("Error al actualizar cliente: " . $e->getMessage(), 500);
+            }
+        }
+    }
+
     public static function destroy($id) {
+        $cliente = Cliente::find($id);
+        if (!$cliente) {
+            ResponseHelper::error("Cliente no encontrado", 404);
+            return;
+        }
         $eliminado = Cliente::delete($id);
         if ($eliminado) {
-            ResponseHelper::json(["mensaje" => "Cliente eliminado"]);
+            ResponseHelper::json(["mensaje" => "Cliente eliminado exitosamente"]);
         } else {
             ResponseHelper::error("No se pudo eliminar el cliente", 400);
         }

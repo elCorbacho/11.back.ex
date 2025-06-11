@@ -73,6 +73,10 @@ switch (true) {
     case preg_match('/^\/clientes\/([\w-]+)$/', $uri, $matches) && $method === 'DELETE':
         ClienteController::destroy($matches[1]);
         break;
+    //metodo PATCH para actualizar parcialmente un cliente por su id
+    case preg_match('/^\/clientes\/([\w-]+)$/', $uri, $matches) && $method === 'PATCH':
+        ClienteController::patch($matches[1]);
+        break;
 
     // Tallas
     //metodo GET para obtener todas las tallas
