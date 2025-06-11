@@ -21,11 +21,11 @@ class Cliente {
         $stmt->execute([
             $data['nombre_comercial'],
             $data['rut'],
-            $data['direccion'] ?? null,
-            $data['categoria'] ?? 'Regular',
-            $data['contacto_nombre'] ?? null,
-            $data['contacto_email'] ?? null,
-            $data['porcentaje_oferta'] ?? 0
+            $data['direccion'],
+            $data['categoria'],
+            $data['contacto_nombre'],
+            $data['contacto_email'],
+            $data['porcentaje_oferta']
         ]);
         $data['id'] = $db->lastInsertId();
         return $data;
@@ -37,11 +37,11 @@ class Cliente {
         $stmt->execute([
             $data['nombre_comercial'],
             $data['rut'],
-            $data['direccion'] ?? null,
-            $data['categoria'] ?? 'Regular',
-            $data['contacto_nombre'] ?? null,
-            $data['contacto_email'] ?? null,
-            $data['porcentaje_oferta'] ?? 0,
+            $data['direccion'],
+            $data['categoria'],
+            $data['contacto_nombre'],
+            $data['contacto_email'],
+            $data['porcentaje_oferta'],
             $id
         ]);
         return $stmt->rowCount() > 0 ? self::find($id) : null;

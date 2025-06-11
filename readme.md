@@ -1,3 +1,53 @@
+# Proyecto API Camisetas
+
+## 📁 Estructura del Proyecto
+
+```
+11.back.ex/
+│
+├── api/
+│   ├── camisetas/
+│   ├── clientes/
+│   ├── tallas/
+│   ├── ofertas/
+│   └── ...otros recursos
+│
+├── config/
+│   └── database.php
+│
+├── controllers/
+│   ├── CamisetaController.php
+│   ├── ClienteController.php
+│   ├── TallaController.php
+│   ├── OfertaController.php
+│   └── ...otros controladores
+│
+├── models/
+│   ├── Camiseta.php
+│   ├── Cliente.php
+│   ├── Talla.php
+│   ├── Oferta.php
+│   └── ...otros modelos
+│
+├── helpers/
+│   ├── ResponseHelper.php
+│   ├── TallaHelper.php
+│   └── ...otros helpers
+│
+├── routes/
+│   └── api.php
+│
+├── public/
+│   └── index.php
+│
+├── vendor/
+│   └── ...dependencias (si usas Composer)
+│
+├── .htaccess
+├── composer.json
+└── readme.md
+```
+
 ## 🚀 Cómo Empezar
 
 1. **Clona o copia el proyecto** en la carpeta `htdocs` de XAMPP.
@@ -13,13 +63,20 @@ Todos los endpoints están bajo el prefijo `/api`.
 
 ### Camisetas
 
-| Método | Endpoint                  | Descripción                        |
-|--------|---------------------------|------------------------------------|
-| GET    | `/api/camisetas`          | Lista todas las camisetas          |
-| GET    | `/api/camisetas/{id}`     | Obtiene una camiseta por su ID     |
-| POST   | `/api/camisetas`          | Crea una nueva camiseta            |
-| PUT    | `/api/camisetas/{id}`     | Actualiza una camiseta existente   |
-| DELETE | `/api/camisetas/{id}`     | Elimina una camiseta               |
+| Método | Endpoint                  | Descripción                                 |
+|--------|---------------------------|---------------------------------------------|
+| GET    | `/api/camisetas`          | Lista todas las camisetas                   |
+| GET    | `/api/camisetas/{id}`     | Obtiene una camiseta por su ID              |
+| POST   | `/api/camisetas`          | Crea una nueva camiseta                     |
+| PUT    | `/api/camisetas/{id}`     | Actualiza completamente una camiseta        |
+| PATCH  | `/api/camisetas/{id}`     | Actualiza parcialmente una camiseta         |
+| DELETE | `/api/camisetas/{id}`     | Elimina una camiseta                        |
+
+#### Notas para camisetas:
+- Para crear o actualizar una camiseta, debes enviar todos los campos obligatorios y un array de tallas por nombre, por ejemplo:  
+  `"tallas": ["S", "M", "L"]`
+- Solo se aceptan las tallas: **S, M, L, XL, XXL, XXXL**.
+- El método PATCH permite actualizar solo los campos que envíes en el body.
 
 ### Clientes
 
