@@ -46,6 +46,11 @@ class TallaController {
     }
 
     public static function destroy($id) {
+    $talla = Talla::find($id);
+        if (!$talla) {
+            ResponseHelper::error("Talla no encontrada", 404);
+            return;
+        }
         $eliminada = Talla::delete($id);
         if ($eliminada) {
             ResponseHelper::json(["mensaje" => "Talla eliminada"]);

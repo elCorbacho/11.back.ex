@@ -35,11 +35,13 @@ class Talla {
         return $stmt->rowCount() > 0 ? self::find($id) : null;
     }
 
+    // DELETE /tallas/{id} >> Eliminar una talla por su ID
     public static function delete($id) {
-        $db = Database::connect();
-        $stmt = $db->prepare("DELETE FROM tallas WHERE id = ?");
-        return $stmt->execute([$id]);
-    }
+    $db = Database::connect();
+    $stmt = $db->prepare("DELETE FROM tallas WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->rowCount() > 0;
+}
 
 
     //====================================================================
