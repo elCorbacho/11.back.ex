@@ -157,17 +157,30 @@ class ClienteController {
         }
     }
 
+    //=======================================
+    // Permite eliminar un cliente y verificar si tiene camisetas asociadas
+    // DELETE /clientes/{id} >> Eliminar un cliente
+    //=======================================
+
     public static function destroy($id) {
-        $cliente = Cliente::find($id);
-        if (!$cliente) {
-            ResponseHelper::error("Cliente no encontrado", 404);
-            return;
-        }
-        $eliminado = Cliente::delete($id);
-        if ($eliminado) {
-            ResponseHelper::json(["mensaje" => "Cliente eliminado exitosamente"]);
-        } else {
-            ResponseHelper::error("No se pudo eliminar el cliente", 400);
-        }
+    $cliente = Cliente::find($id);
+    if (!$cliente) {
+        ResponseHelper::error("Cliente no encontrado", 404);
+        return;
     }
+
+    // Verificar si tiene camisetas asociadas por ofertas
+    require_once __DIR__ . '/../models/Oferta.php';
+    if (Oferta::existeOfertaPorCliente($id)) {
+        ResponseHelper::error("No se puede eliminar el cliente porque tiene ofertas asociadas a camisetas", 400);
+        return;
+    }
+
+    $eliminado = Cliente::delete($id);
+    if ($eliminado) {
+        ResponseHelper::json(["mensaje" => "Cliente eliminado exitosamente"]);
+    } else {
+        ResponseHelper::error("No se pudo eliminar el cliente", 400);
+    }
+}
 }

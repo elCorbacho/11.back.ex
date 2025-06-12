@@ -41,9 +41,11 @@ class Oferta {
         return false;
     }
 
-    public static function delete($id) {
+    public static function existeOfertaPorCliente($cliente_id) {
         $db = Database::connect();
-        $stmt = $db->prepare("DELETE FROM ofertas WHERE id = ?");
-        return $stmt->execute([$id]);
+        $stmt = $db->prepare("SELECT COUNT(*) as total FROM ofertas WHERE cliente_id = ?");
+        $stmt->execute([$cliente_id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row && $row['total'] > 0;
     }
 }

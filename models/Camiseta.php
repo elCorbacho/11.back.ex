@@ -116,4 +116,14 @@ class Camiseta {
         $stmt->execute([$codigo]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    //metodo para encontrar camisetas por cliente
+    //utilizado en ClienteController::destroy() para verificar si un cliente tiene camisetas asociadas
+    public static function findByClienteId($cliente_id) {
+        $db = Database::connect();
+        $stmt = $db->prepare("SELECT * FROM camisetas WHERE cliente_id = ?");
+        $stmt->execute([$cliente_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
