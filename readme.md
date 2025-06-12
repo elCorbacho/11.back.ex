@@ -155,3 +155,4 @@ Todos los endpoints están bajo el prefijo `/api`.
 
 Desarrollado por [Tu Nombre o Equipo].  
 ¡Contribuciones y sugerencias son bienvenidas!
+.
