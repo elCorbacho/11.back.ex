@@ -51,6 +51,18 @@ class ClienteController {
             return;
         }
 
+        // Validar categoría
+        if (!in_array($data['categoria'], ['Regular', 'Preferencial'], true)) {
+            ResponseHelper::error("La categoría solo puede ser 'Regular' o 'Preferencial'", 400);
+            return;
+        }
+
+        // Validar que el RUT no esté vacío
+        if (!isset($data['rut']) || trim($data['rut']) === '') {
+            ResponseHelper::error("El campo 'rut' no puede estar vacío", 400);
+            return;
+        }
+
         try {
             $nuevo = Cliente::create($data);
             ResponseHelper::json($nuevo, 201);
@@ -97,6 +109,18 @@ class ClienteController {
             return;
         }
 
+        // Validar categoría
+        if (!in_array($data['categoria'], ['Regular', 'Preferencial'], true)) {
+            ResponseHelper::error("La categoría solo puede ser 'Regular' o 'Preferencial'", 400);
+            return;
+        }
+
+        // Validar que el RUT no esté vacío
+        if (!isset($data['rut']) || trim($data['rut']) === '') {
+            ResponseHelper::error("El campo 'rut' no puede estar vacío", 400);
+            return;
+        }
+
         try {
             $actualizado = Cliente::update($id, $data);
             if ($actualizado) {
@@ -138,6 +162,12 @@ class ClienteController {
             ResponseHelper::json([
                 "error" => "No se enviaron campos válidos para actualizar"
             ], 400);
+            return;
+        }
+
+        // Validar categoría si viene en el PATCH
+        if (isset($data['categoria']) && !in_array($data['categoria'], ['Regular', 'Preferencial'], true)) {
+            ResponseHelper::error("La categoría solo puede ser 'Regular' o 'Preferencial'", 400);
             return;
         }
 

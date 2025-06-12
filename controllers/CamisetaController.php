@@ -41,10 +41,15 @@ class CamisetaController {
             ResponseHelper::error("Debes indicar al menos una talla", 400);
             return;
         }
-        // Validar que todas las tallas sean enteros positivos
+        // Validar que todas las tallas sean enteros positivos y existan en la base de datos
         foreach ($data['tallas'] as $talla_id) {
             if (!is_int($talla_id) || $talla_id <= 0) {
                 ResponseHelper::error("Cada talla debe ser un ID numérico positivo", 400);
+                return;
+            }
+            $talla = Talla::find($talla_id);
+            if (!$talla) {
+                ResponseHelper::error("La talla con ID $talla_id no existe", 400);
                 return;
             }
         }
@@ -73,10 +78,15 @@ class CamisetaController {
             ResponseHelper::error("Debes indicar al menos una talla", 400);
             return;
         }
-        // Validar que todas las tallas sean enteros positivos
+        // Validar que todas las tallas sean enteros positivos y existan en la base de datos
         foreach ($data['tallas'] as $talla_id) {
             if (!is_int($talla_id) || $talla_id <= 0) {
                 ResponseHelper::error("Cada talla debe ser un ID numérico positivo", 400);
+                return;
+            }
+            $talla = Talla::find($talla_id);
+            if (!$talla) {
+                ResponseHelper::error("La talla con ID $talla_id no existe", 400);
                 return;
             }
         }
@@ -102,8 +112,15 @@ class CamisetaController {
             return;
         }
 
-        // Mezclar los datos recibidos con los actuales
+        // No permitir campos en blanco o null
         $campos = ['titulo', 'club', 'pais', 'tipo', 'color', 'precio', 'detalles', 'codigo_producto'];
+        foreach ($campos as $campo) {
+            if (array_key_exists($campo, $data) && ($data[$campo] === '' || $data[$campo] === null)) {
+                ResponseHelper::error("El campo '$campo' no puede estar en blanco ni null en PATCH", 400);
+                return;
+            }
+        }
+        // Completar con valores actuales si no se envía el campo
         foreach ($campos as $campo) {
             if (!isset($data[$campo])) {
                 $data[$campo] = $camisetaActual[$campo] ?? null;
@@ -116,10 +133,15 @@ class CamisetaController {
                 ResponseHelper::error("Si envías 'tallas', debe ser un array con al menos una talla", 400);
                 return;
             }
-            // Validar que todas las tallas sean enteros positivos
+            // Validar que todas las tallas sean enteros positivos y existan en la base de datos
             foreach ($data['tallas'] as $talla_id) {
                 if (!is_int($talla_id) || $talla_id <= 0) {
                     ResponseHelper::error("Cada talla debe ser un ID numérico positivo", 400);
+                    return;
+                }
+                $talla = Talla::find($talla_id);
+                if (!$talla) {
+                    ResponseHelper::error("La talla con ID $talla_id no existe", 400);
                     return;
                 }
             }
