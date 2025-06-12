@@ -111,10 +111,10 @@ class Camiseta {
     }
 
     // GET /camisetas/codigo_producto/{codigo} >> Obtener una camiseta por su código de producto
-    public static function findByCodigoProducto($codigo) {
+    public static function findByCodigoProducto($codigo_producto) {
         $db = Database::connect();
         $stmt = $db->prepare("SELECT * FROM camisetas WHERE codigo_producto = ?");
-        $stmt->execute([$codigo]);
+        $stmt->execute([$codigo_producto]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 

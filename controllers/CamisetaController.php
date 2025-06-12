@@ -67,6 +67,12 @@ class CamisetaController {
             $data['tallas'] = $tallas_ids;
         }
 
+        // Antes de crear la camiseta, verifica unicidad de codigo_producto
+        if (Camiseta::findByCodigoProducto($data['codigo_producto'])) {
+            ResponseHelper::error("El código de producto ya existe", 400);
+            return;
+        }
+
         $nueva = Camiseta::create($data);
 
         // Convertir tallas a array si existe
