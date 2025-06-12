@@ -8,6 +8,7 @@ class CamisetaController {
     // GET /camisetas
     public static function index() {
         $camisetas = Camiseta::all();
+        // Las tallas ya vienen como IDs por el modelo
         ResponseHelper::json($camisetas);
     }
 
@@ -15,6 +16,7 @@ class CamisetaController {
     public static function show($id) {
         $camiseta = Camiseta::find($id);
         if ($camiseta) {
+            // Las tallas ya vienen como IDs por el modelo
             ResponseHelper::json($camiseta);
         } else {
             ResponseHelper::error("Camiseta no encontrada", 404);
@@ -35,47 +37,21 @@ class CamisetaController {
         }
 
         // Validar que tallas exista, sea array y tenga al menos un elemento
-        if (
-            !isset($data['tallas']) ||
-            !is_array($data['tallas']) ||
-            count($data['tallas']) === 0
-        ) {
+        if (!isset($data['tallas']) || !is_array($data['tallas']) || count($data['tallas']) === 0) {
             ResponseHelper::error("Debes indicar al menos una talla", 400);
             return;
         }
-
-        // Lista de tallas válidas
-        $validTallas = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-
-        // Validar que todas las tallas sean válidas por nombre
-        foreach ($data['tallas'] as $talla_nombre) {
-            if (!in_array($talla_nombre, $validTallas, true)) {
-                ResponseHelper::error("Talla no válida: $talla_nombre. Solo se aceptan: S, M, L, XL, XXL, XXXL", 400);
+        // Validar que todas las tallas sean enteros positivos
+        foreach ($data['tallas'] as $talla_id) {
+            if (!is_int($talla_id) || $talla_id <= 0) {
+                ResponseHelper::error("Cada talla debe ser un ID numérico positivo", 400);
                 return;
             }
         }
-
-        // Convertir tallas a IDs
-        if (isset($data['tallas']) && is_array($data['tallas'])) {
-            $tallas_ids = [];
-            foreach ($data['tallas'] as $talla_nombre) {
-                $id = TallaHelper::getIdByNombre($talla_nombre);
-                if ($id !== null) {
-                    $tallas_ids[] = $id;
-                }
-            }
-            $data['tallas'] = $tallas_ids;
-        }
+        // No se hace conversión de nombres a IDs aquí
 
         $nueva = Camiseta::create($data);
-
-        // Convertir tallas a array si existe
-        if (isset($nueva['tallas'])) {
-            $nueva['tallas'] = $nueva['tallas'] !== null && $nueva['tallas'] !== ''
-                ? explode(',', $nueva['tallas'])
-                : [];
-        }
-
+        // Las tallas ya vienen como IDs por el modelo
         ResponseHelper::json($nueva, 201);
     }
 
@@ -93,47 +69,21 @@ class CamisetaController {
         }
 
         // Validar que tallas exista, sea array y tenga al menos un elemento
-        if (
-            !isset($data['tallas']) ||
-            !is_array($data['tallas']) ||
-            count($data['tallas']) === 0
-        ) {
+        if (!isset($data['tallas']) || !is_array($data['tallas']) || count($data['tallas']) === 0) {
             ResponseHelper::error("Debes indicar al menos una talla", 400);
             return;
         }
-
-        // Lista de tallas válidas
-        $validTallas = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-
-        // Validar que todas las tallas sean válidas por nombre
-        foreach ($data['tallas'] as $talla_nombre) {
-            if (!in_array($talla_nombre, $validTallas, true)) {
-                ResponseHelper::error("Talla no válida: $talla_nombre. Solo se aceptan: S, M, L, XL, XXL, XXXL", 400);
+        // Validar que todas las tallas sean enteros positivos
+        foreach ($data['tallas'] as $talla_id) {
+            if (!is_int($talla_id) || $talla_id <= 0) {
+                ResponseHelper::error("Cada talla debe ser un ID numérico positivo", 400);
                 return;
             }
         }
-
-        // Convertir tallas a IDs
-        if (isset($data['tallas']) && is_array($data['tallas'])) {
-            $tallas_ids = [];
-            foreach ($data['tallas'] as $talla_nombre) {
-                $id = TallaHelper::getIdByNombre($talla_nombre);
-                if ($id !== null) {
-                    $tallas_ids[] = $id;
-                }
-            }
-            $data['tallas'] = $tallas_ids;
-        }
+        // No se hace conversión de nombres a IDs aquí
 
         $actualizada = Camiseta::update($id, $data);
-
-        // Convertir tallas a array si existe
-        if (isset($actualizada['tallas'])) {
-            $actualizada['tallas'] = $actualizada['tallas'] !== null && $actualizada['tallas'] !== ''
-                ? explode(',', $actualizada['tallas'])
-                : [];
-        }
-
+        // Las tallas ya vienen como IDs por el modelo
         if ($actualizada) {
             ResponseHelper::json($actualizada);
         } else {
@@ -205,14 +155,7 @@ class CamisetaController {
         }
 
         $actualizada = Camiseta::update($id, $data);
-
-        // Convertir tallas a array si existe
-        if (isset($actualizada['tallas'])) {
-            $actualizada['tallas'] = $actualizada['tallas'] !== null && $actualizada['tallas'] !== ''
-                ? explode(',', $actualizada['tallas'])
-                : [];
-        }
-
+        // Las tallas ya vienen como IDs por el modelo
         if ($actualizada) {
             ResponseHelper::json($actualizada);
         } else {
@@ -234,67 +177,61 @@ class CamisetaController {
     //GET CAMISETA Y PRECIO FINAL SEGUN CLIENTE Y DESCUENTO
      //===================================================================
     public static function showPrecioFinal($id) {
-    require_once __DIR__ . '/../models/Cliente.php';
-    require_once __DIR__ . '/../models/Talla.php';
+        require_once __DIR__ . '/../models/Cliente.php';
+        require_once __DIR__ . '/../models/Talla.php';
 
-    $camiseta = Camiseta::find($id);
-    if (!$camiseta) {
-        ResponseHelper::error("Camiseta no encontrada", 404);
-        return;
-    }
-
-    // Obtener tallas disponibles
-    $tallas = Talla::findByCamisetaId($id);
-    $tallas_disponibles = [];
-    if ($tallas && is_array($tallas)) {
-        foreach ($tallas as $talla) {
-            $tallas_disponibles[] = $talla['talla'];
+        $camiseta = Camiseta::find($id);
+        if (!$camiseta) {
+            ResponseHelper::error("Camiseta no encontrada", 404);
+            return;
         }
-    }
 
-    // Obtener cliente_id desde query param (debe ser ID numérico)
-    $cliente_id = $_GET['cliente_id'] ?? null;
-    $cliente = null;
-    $porcentaje_oferta = "sin descuento";
-    $precio_inicial = $camiseta['precio'];
-    $precio_final = $precio_inicial;
+        // Obtener tallas disponibles como IDs
+        $tallas_disponibles = Talla::findByCamisetaId($id);
 
-    if ($cliente_id) {
-        $cliente = Cliente::find($cliente_id); // Buscar por ID
+        // Obtener cliente_id desde query param (debe ser ID numérico)
+        $cliente_id = $_GET['cliente_id'] ?? null;
+        $cliente = null;
+        $porcentaje_oferta = "sin descuento";
+        $precio_inicial = $camiseta['precio'];
+        $precio_final = $precio_inicial;
+
+        if ($cliente_id) {
+            $cliente = Cliente::find($cliente_id); // Buscar por ID
+            if ($cliente) {
+                // Si el cliente tiene porcentaje_oferta y es mayor a 0, mostrarlo
+                if (!empty($cliente['porcentaje_oferta']) && $cliente['porcentaje_oferta'] > 0) {
+                    $porcentaje_oferta = $cliente['porcentaje_oferta'];
+                }
+                // Si el cliente es Preferencial y hay precio_oferta, usarlo
+                if ($cliente['categoria'] === 'Preferencial' && !empty($camiseta['precio_oferta'])) {
+                    $precio_final = $camiseta['precio_oferta'];
+                }
+                // Si el cliente tiene porcentaje_oferta, úsalo como descuento
+                elseif (!empty($cliente['porcentaje_oferta'])) {
+                    $precio_final = $precio_inicial - round($precio_inicial * ($cliente['porcentaje_oferta'] / 100));
+                }
+            }
+        }
+
+        $respuesta = [
+            "id_camiseta" => $camiseta['id'],
+            "titulo" => $camiseta['titulo'],
+            "club" => $camiseta['club'],
+            "tallas_disponibles" => $tallas_disponibles,
+            "tipo" => $camiseta['tipo'],
+            "color" => $camiseta['color'],
+            "PRECIO_INICIAL" => $precio_inicial,
+        ];
+
         if ($cliente) {
-            // Si el cliente tiene porcentaje_oferta y es mayor a 0, mostrarlo
-            if (!empty($cliente['porcentaje_oferta']) && $cliente['porcentaje_oferta'] > 0) {
-                $porcentaje_oferta = $cliente['porcentaje_oferta'];
-            }
-            // Si el cliente es Preferencial y hay precio_oferta, usarlo
-            if ($cliente['categoria'] === 'Preferencial' && !empty($camiseta['precio_oferta'])) {
-                $precio_final = $camiseta['precio_oferta'];
-            }
-            // Si el cliente tiene porcentaje_oferta, úsalo como descuento
-            elseif (!empty($cliente['porcentaje_oferta'])) {
-                $precio_final = $precio_inicial - round($precio_inicial * ($cliente['porcentaje_oferta'] / 100));
-            }
+            $respuesta["id_cliente"] = $cliente['id'];
+            $respuesta["nombre_comercial_cliente"] = $cliente['nombre_comercial'];
+            $respuesta["PORCENTAJE_OFERTA_CLIENTE"] = $porcentaje_oferta;
         }
-    }
 
-    $respuesta = [
-        "id_camiseta" => $camiseta['id'],
-        "titulo" => $camiseta['titulo'],
-        "club" => $camiseta['club'],
-        "tallas_disponibles" => $tallas_disponibles,
-        "tipo" => $camiseta['tipo'],
-        "color" => $camiseta['color'],
-        "PRECIO_INICIAL" => $precio_inicial,
-    ];
+        $respuesta["PRECIO_FINAL"] = $precio_final;
 
-    if ($cliente) {
-        $respuesta["id_cliente"] = $cliente['id'];
-        $respuesta["nombre_comercial_cliente"] = $cliente['nombre_comercial'];
-        $respuesta["PORCENTAJE_OFERTA_CLIENTE"] = $porcentaje_oferta;
-    }
-
-    $respuesta["PRECIO_FINAL"] = $precio_final;
-
-    ResponseHelper::json($respuesta);
+        ResponseHelper::json($respuesta);
     }
 }

@@ -54,15 +54,10 @@ class Talla {
     //GET CAMISETA Y PRECIO FINAL SEGUN CLIENTE Y DESCUENTO
     //===================================================================
     public static function findByCamisetaId($camiseta_id) {
-    $db = Database::connect();
-    $stmt = $db->prepare("
-        SELECT t.talla
-        FROM tallas t
-        INNER JOIN camiseta_talla ct ON ct.talla_id = t.id
-        WHERE ct.camiseta_id = ?
-    ");
-    $stmt->execute([$camiseta_id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db = Database::connect();
+        $stmt = $db->prepare("SELECT t.id FROM tallas t INNER JOIN camiseta_talla ct ON ct.talla_id = t.id WHERE ct.camiseta_id = ?");
+        $stmt->execute([$camiseta_id]);
+        return array_map(function($row) { return (int)$row['id']; }, $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
 

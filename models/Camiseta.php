@@ -9,31 +9,28 @@ class Camiseta {
     // GET /camisetas >> Obtener todas las camisetas
     public static function all() {
         $db = Database::connect();
-        $stmt = $db->query("
-            SELECT c.*, 
-                   GROUP_CONCAT(t.talla ORDER BY t.talla) AS tallas
-            FROM camisetas c
-            LEFT JOIN camiseta_talla ct ON c.id = ct.camiseta_id
-            LEFT JOIN tallas t ON ct.talla_id = t.id
-            GROUP BY c.id
-        ");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $db->query("SELECT c.* FROM camisetas c");
+        $camisetas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($camisetas as &$camiseta) {
+            $stmtTallas = $db->prepare("SELECT talla_id FROM camiseta_talla WHERE camiseta_id = ?");
+            $stmtTallas->execute([$camiseta['id']]);
+            $camiseta['tallas'] = array_map(function($row) { return (int)$row['talla_id']; }, $stmtTallas->fetchAll(PDO::FETCH_ASSOC));
+        }
+        return $camisetas;
     }
 
     // GET /camisetas/{id} >> Obtener una camiseta por su ID
     public static function find($id) {
         $db = Database::connect();
-        $stmt = $db->prepare("
-            SELECT c.*, 
-                   GROUP_CONCAT(t.talla ORDER BY t.talla) AS tallas
-            FROM camisetas c
-            LEFT JOIN camiseta_talla ct ON c.id = ct.camiseta_id
-            LEFT JOIN tallas t ON ct.talla_id = t.id
-            WHERE c.id = ?
-            GROUP BY c.id
-        ");
+        $stmt = $db->prepare("SELECT c.* FROM camisetas c WHERE c.id = ?");
         $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $camiseta = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($camiseta) {
+            $stmtTallas = $db->prepare("SELECT talla_id FROM camiseta_talla WHERE camiseta_id = ?");
+            $stmtTallas->execute([$camiseta['id']]);
+            $camiseta['tallas'] = array_map(function($row) { return (int)$row['talla_id']; }, $stmtTallas->fetchAll(PDO::FETCH_ASSOC));
+        }
+        return $camiseta;
     }
 
     // POST /camisetas >> Crear una nueva camiseta 
