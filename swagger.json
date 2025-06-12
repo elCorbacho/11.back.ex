@@ -25,6 +25,28 @@
                   "items": { "$ref": "#/components/schemas/Camiseta" }
                 }
               }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
             }
           }
         }
@@ -46,6 +68,28 @@
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Camiseta" }
               }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
             }
           }
         }
@@ -63,6 +107,28 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Camiseta" }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           },
@@ -83,7 +149,31 @@
           }
         },
         "responses": {
-          "200": { "description": "Camiseta actualizada" },
+          "200": {
+            "description": "Camiseta actualizada",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Camiseta no encontrada" }
         }
       },
@@ -101,7 +191,31 @@
           }
         },
         "responses": {
-          "200": { "description": "Camiseta actualizada" },
+          "200": {
+            "description": "Camiseta actualizada",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Camiseta no encontrada" }
         }
       },
@@ -111,7 +225,31 @@
           { "in": "path", "name": "id", "required": true, "schema": { "type": "integer" } }
         ],
         "responses": {
-          "200": { "description": "Camiseta eliminada" },
+          "200": {
+            "description": "Camiseta eliminada",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Camiseta no encontrada" }
         }
       }
@@ -129,6 +267,28 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PrecioFinal" }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           },
@@ -148,6 +308,28 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Cliente" }
                 }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           }
@@ -170,6 +352,28 @@
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Cliente" }
               }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
             }
           }
         }
@@ -187,6 +391,28 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Cliente" }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           },
@@ -207,7 +433,31 @@
           }
         },
         "responses": {
-          "200": { "description": "Cliente actualizado" },
+          "200": {
+            "description": "Cliente actualizado",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Cliente no encontrado" }
         }
       },
@@ -225,7 +475,31 @@
           }
         },
         "responses": {
-          "200": { "description": "Cliente actualizado" },
+          "200": {
+            "description": "Cliente actualizado",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Cliente no encontrado" }
         }
       },
@@ -235,7 +509,31 @@
           { "in": "path", "name": "id", "required": true, "schema": { "type": "integer" } }
         ],
         "responses": {
-          "200": { "description": "Cliente eliminado" },
+          "200": {
+            "description": "Cliente eliminado",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "400": { "description": "No se puede eliminar el cliente porque tiene ofertas asociadas" },
           "404": { "description": "Cliente no encontrado" }
         }
@@ -253,6 +551,28 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Talla" }
                 }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           }
@@ -275,6 +595,28 @@
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Talla" }
               }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
             }
           }
         }
@@ -292,6 +634,28 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Talla" }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           },
@@ -312,7 +676,31 @@
           }
         },
         "responses": {
-          "200": { "description": "Talla actualizada" },
+          "200": {
+            "description": "Talla actualizada",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Talla no encontrada" }
         }
       },
@@ -322,7 +710,31 @@
           { "in": "path", "name": "id", "required": true, "schema": { "type": "integer" } }
         ],
         "responses": {
-          "200": { "description": "Talla eliminada" },
+          "200": {
+            "description": "Talla eliminada",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Talla no encontrada" }
         }
       }
@@ -339,6 +751,28 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Oferta" }
                 }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           }
@@ -361,6 +795,28 @@
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Oferta" }
               }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
             }
           }
         }
@@ -378,6 +834,28 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Oferta" }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
               }
             }
           },
@@ -398,7 +876,31 @@
           }
         },
         "responses": {
-          "200": { "description": "Oferta actualizada" },
+          "200": {
+            "description": "Oferta actualizada",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Oferta no encontrada" }
         }
       },
@@ -408,7 +910,31 @@
           { "in": "path", "name": "id", "required": true, "schema": { "type": "integer" } }
         ],
         "responses": {
-          "200": { "description": "Oferta eliminada" },
+          "200": {
+            "description": "Oferta eliminada",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Límite máximo de peticiones permitidas",
+                "schema": { "type": "integer", "example": 100 }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Peticiones restantes en la ventana actual",
+                "schema": { "type": "integer", "example": 99 }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Tiempo en segundos hasta el reseteo del límite",
+                "schema": { "type": "integer", "example": 60 }
+              },
+              "Cache-Control": {
+                "description": "Control de caché, fuerza la validación antes de usar la caché",
+                "schema": { "type": "string", "example": "no-cache" }
+              },
+              "ETag": {
+                "description": "Identificador único de la versión del recurso para control de caché y validación condicional.",
+                "schema": { "type": "string", "example": "\"33a64df551425fcc55e4d42a148795d9f25f89d4\"" }
+              }
+            }
+          },
           "404": { "description": "Oferta no encontrada" }
         }
       }
