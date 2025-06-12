@@ -226,7 +226,7 @@ class CamisetaController {
         if ($eliminada) {
             ResponseHelper::json(["mensaje" => "Camiseta eliminada"]);
         } else {
-            ResponseHelper::error("No se pudo eliminar la camiseta", 400);
+            ResponseHelper::error("No se pudo eliminar la camiseta o no existe ID", 400);
         }
     }
 

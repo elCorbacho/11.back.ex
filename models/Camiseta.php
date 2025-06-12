@@ -106,7 +106,8 @@ class Camiseta {
     public static function delete($id) {
         $db = Database::connect();
         $stmt = $db->prepare("DELETE FROM camisetas WHERE id = ?");
-        return $stmt->execute([$id]);
+        $stmt->execute([$id]);
+        return $stmt->rowCount() > 0;
     }
 
     // GET /camisetas/codigo_producto/{codigo} >> Obtener una camiseta por su código de producto
