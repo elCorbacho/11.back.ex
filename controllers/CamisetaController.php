@@ -116,32 +116,16 @@ class CamisetaController {
                 ResponseHelper::error("Si envías 'tallas', debe ser un array con al menos una talla", 400);
                 return;
             }
-
-            // Lista de tallas válidas
-            $validTallas = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-
-            // Validar que todas las tallas sean válidas por nombre
-            foreach ($data['tallas'] as $talla_nombre) {
-                if (!in_array($talla_nombre, $validTallas, true)) {
-                    ResponseHelper::error("Talla no válida: $talla_nombre. Solo se aceptan: S, M, L, XL, XXL, XXXL", 400);
+            // Validar que todas las tallas sean enteros positivos
+            foreach ($data['tallas'] as $talla_id) {
+                if (!is_int($talla_id) || $talla_id <= 0) {
+                    ResponseHelper::error("Cada talla debe ser un ID numérico positivo", 400);
                     return;
                 }
             }
         } else {
             // Si no se envía, no modificar tallas
             unset($data['tallas']);
-        }
-
-        // Convertir tallas a IDs
-        if (isset($data['tallas']) && is_array($data['tallas'])) {
-            $tallas_ids = [];
-            foreach ($data['tallas'] as $talla_nombre) {
-                $id = TallaHelper::getIdByNombre($talla_nombre);
-                if ($id !== null) {
-                    $tallas_ids[] = $id;
-                }
-            }
-            $data['tallas'] = $tallas_ids;
         }
 
         // Validar unicidad de codigo_producto solo si fue modificado
