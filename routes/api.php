@@ -19,7 +19,9 @@ if ($uri === '') {
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch (true) {
+    //=============================================
     // Camisetas
+    //=============================================
     //metodo GET para obtener todas las camisetas
     case preg_match('/^\/camisetas\/?$/', $uri) && $method === 'GET':
         CamisetaController::index();
@@ -50,16 +52,18 @@ switch (true) {
         CamisetaController::patch($matches[1]);
         break;
 
-    //===================================================================
+    //---------------------------------------------------------
     //GET CAMISETA Y PRECIO FINAL SEGUN CLIENTE Y DESCUENTO
-    //===================================================================
+    //---------------------------------------------------------
     // GET /camisetas/{id}/precio-final?cliente_id=nombre_comercial
     case preg_match('/^\/camisetas\/([\w-]+)\/precio-final$/', $uri, $matches) && $method === 'GET':
         CamisetaController::showPrecioFinal($matches[1]);
         break;
 
 
+    //=============================================
     // Clientes
+    //=============================================
     //metodo GET para obtener todos los clientes
     case preg_match('/^\/clientes$/', $uri) && $method === 'GET':
         ClienteController::index();
@@ -85,7 +89,9 @@ switch (true) {
         ClienteController::patch($matches[1]);
         break;
 
+    ////=============================================
     // Tallas
+    //=============================================
     //metodo GET para obtener todas las tallas
     case preg_match('/^\/tallas$/', $uri) && $method === 'GET':
         TallaController::index();
@@ -107,7 +113,11 @@ switch (true) {
         TallaController::destroy($matches[1]);
         break;
 
+
+
+    ////=============================================
     // Ofertas
+    //=============================================
     //metodo GET para obtener todas las ofertas
     case preg_match('/^\/ofertas$/', $uri) && $method === 'GET':
         OfertaController::index();
@@ -131,7 +141,9 @@ switch (true) {
         OfertaController::destroy($matches[1]);
         break;
 
+    //=============================================
     // Ruta por defecto
+    //============================================
     default:
         ResponseHelper::error('Ruta no encontrada', 404);
         break;

@@ -2,12 +2,16 @@
 require_once __DIR__ . '/../config/database.php';
 
 class Talla {
+    // Modelo Talla
+    // Este modelo interactúa con la base de datos para realizar operaciones CRUD sobre tallas
+    // GET /tallas >> Obtener todas las tallas
     public static function all() {
         $db = Database::connect();
         $stmt = $db->query("SELECT * FROM tallas");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // GET /tallas/{id} >> Obtener una talla por su ID
     public static function find($id) {
         $db = Database::connect();
         $stmt = $db->prepare("SELECT * FROM tallas WHERE id = ?");
@@ -15,6 +19,7 @@ class Talla {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    // POST /tallas >> Crear una nueva talla
     public static function create($data) {
         $db = Database::connect();
         $stmt = $db->prepare("INSERT INTO tallas (talla) VALUES (?)");
@@ -25,6 +30,7 @@ class Talla {
         return $data;
     }
 
+    // PUT /tallas/{id} >> Actualizar una talla por su ID
     public static function update($id, $data) {
         $db = Database::connect();
         $stmt = $db->prepare("UPDATE tallas SET talla = ? WHERE id = ?");
