@@ -8,7 +8,7 @@
   "servers": [
     {
       "url": "http://localhost/11.back.ex/api",
-      "description": "Servidor local de desarrollo"
+      "description": "API PARA EXAMEN DE BACKEND IPSS CIISA 06-2025"
     }
   ],
   "paths": {
@@ -23,7 +23,21 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Camiseta" }
-                }
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "titulo": "Camiseta Oficial Uruguay 2024",
+                    "club": "Uruguay",
+                    "pais": "Uruguay",
+                    "tipo": "Oficial",
+                    "color": "Celeste",
+                    "precio": 79.00,
+                    "detalles": "Edición Copa América 2024",
+                    "codigo_producto": "URU-2024",
+                    "tallas": ["S", "M", "L"]
+                  }
+                ]
               }
             },
             "headers": {
@@ -66,7 +80,19 @@
             "description": "Camiseta creada",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Camiseta" }
+                "schema": { "$ref": "#/components/schemas/Camiseta" },
+                "example": {
+                  "id": 2,
+                  "titulo": "Camiseta Alternativa Chile 2024",
+                  "club": "Chile",
+                  "pais": "Chile",
+                  "tipo": "Alternativa",
+                  "color": "Blanca",
+                  "precio": 69.00,
+                  "detalles": "Edición especial",
+                  "codigo_producto": "CHI-2024-ALT",
+                  "tallas": ["M", "L"]
+                }
               }
             },
             "headers": {
@@ -106,7 +132,19 @@
             "description": "Camiseta encontrada",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Camiseta" }
+                "schema": { "$ref": "#/components/schemas/Camiseta" },
+                "example": {
+                  "id": 1,
+                  "titulo": "Camiseta Oficial Uruguay 2024",
+                  "club": "Uruguay",
+                  "pais": "Uruguay",
+                  "tipo": "Oficial",
+                  "color": "Celeste",
+                  "precio": 79.00,
+                  "detalles": "Edición Copa América 2024",
+                  "codigo_producto": "URU-2024",
+                  "tallas": ["S", "M", "L"]
+                }
               }
             },
             "headers": {
@@ -151,6 +189,23 @@
         "responses": {
           "200": {
             "description": "Camiseta actualizada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Camiseta" },
+                "example": {
+                  "id": 1,
+                  "titulo": "Camiseta Oficial Uruguay 2024",
+                  "club": "Uruguay",
+                  "pais": "Uruguay",
+                  "tipo": "Oficial",
+                  "color": "Celeste",
+                  "precio": 79.00,
+                  "detalles": "Edición Copa América 2024",
+                  "codigo_producto": "URU-2024",
+                  "tallas": ["S", "M", "L"]
+                }
+              }
+            },
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Límite máximo de peticiones permitidas",
@@ -193,6 +248,23 @@
         "responses": {
           "200": {
             "description": "Camiseta actualizada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Camiseta" },
+                "example": {
+                  "id": 1,
+                  "titulo": "Camiseta Oficial Uruguay 2024",
+                  "club": "Uruguay",
+                  "pais": "Uruguay",
+                  "tipo": "Oficial",
+                  "color": "Celeste",
+                  "precio": 79.00,
+                  "detalles": "Edición Copa América 2024",
+                  "codigo_producto": "URU-2024",
+                  "tallas": ["S", "M", "L"]
+                }
+              }
+            },
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Límite máximo de peticiones permitidas",
@@ -266,7 +338,20 @@
             "description": "Precio final calculado",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PrecioFinal" }
+                "schema": { "$ref": "#/components/schemas/PrecioFinal" },
+                "example": {
+                  "id_camiseta": 1,
+                  "titulo": "Camiseta Oficial Uruguay 2024",
+                  "club": "Uruguay",
+                  "tallas_disponibles": ["S", "M", "L"],
+                  "tipo": "Oficial",
+                  "color": "Celeste",
+                  "PRECIO_INICIAL": 79.00,
+                  "id_cliente": 1,
+                  "nombre_comercial_cliente": "Zona Fútbol",
+                  "porcentaje_oferta_cliente": "5.00",
+                  "PRECIO_FINAL": 75.05
+                }
               }
             },
             "headers": {
@@ -307,7 +392,19 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Cliente" }
-                }
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "nombre_comercial": "Zona Fútbol",
+                    "rut": "10000000-1",
+                    "direccion": "Av. Gol 101",
+                    "categoria": "Regular",
+                    "contacto_nombre": "Esteban Vera",
+                    "contacto_email": "esteban@zonafutbol.cl",
+                    "porcentaje_oferta": 5.00
+                  }
+                ]
               }
             },
             "headers": {
@@ -350,7 +447,17 @@
             "description": "Cliente creado",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Cliente" }
+                "schema": { "$ref": "#/components/schemas/Cliente" },
+                "example": {
+                  "id": 2,
+                  "nombre_comercial": "Fútbol Store",
+                  "rut": "20000000-2",
+                  "direccion": "Av. Estadio 202",
+                  "categoria": "Premium",
+                  "contacto_nombre": "María López",
+                  "contacto_email": "maria@futbolstore.cl",
+                  "porcentaje_oferta": 10.00
+                }
               }
             },
             "headers": {
@@ -390,7 +497,17 @@
             "description": "Cliente encontrado",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Cliente" }
+                "schema": { "$ref": "#/components/schemas/Cliente" },
+                "example": {
+                  "id": 1,
+                  "nombre_comercial": "Zona Fútbol",
+                  "rut": "10000000-1",
+                  "direccion": "Av. Gol 101",
+                  "categoria": "Regular",
+                  "contacto_nombre": "Esteban Vera",
+                  "contacto_email": "esteban@zonafutbol.cl",
+                  "porcentaje_oferta": 5.00
+                }
               }
             },
             "headers": {
@@ -435,6 +552,21 @@
         "responses": {
           "200": {
             "description": "Cliente actualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Cliente" },
+                "example": {
+                  "id": 1,
+                  "nombre_comercial": "Zona Fútbol",
+                  "rut": "10000000-1",
+                  "direccion": "Av. Gol 101",
+                  "categoria": "Regular",
+                  "contacto_nombre": "Esteban Vera",
+                  "contacto_email": "esteban@zonafutbol.cl",
+                  "porcentaje_oferta": 5.00
+                }
+              }
+            },
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Límite máximo de peticiones permitidas",
@@ -477,6 +609,21 @@
         "responses": {
           "200": {
             "description": "Cliente actualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Cliente" },
+                "example": {
+                  "id": 1,
+                  "nombre_comercial": "Zona Fútbol",
+                  "rut": "10000000-1",
+                  "direccion": "Av. Gol 101",
+                  "categoria": "Regular",
+                  "contacto_nombre": "Esteban Vera",
+                  "contacto_email": "esteban@zonafutbol.cl",
+                  "porcentaje_oferta": 5.00
+                }
+              }
+            },
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Límite máximo de peticiones permitidas",
@@ -550,7 +697,12 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Talla" }
-                }
+                },
+                "example": [
+                  { "id": 1, "talla": "S" },
+                  { "id": 2, "talla": "M" },
+                  { "id": 3, "talla": "L" }
+                ]
               }
             },
             "headers": {
@@ -593,7 +745,8 @@
             "description": "Talla creada",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Talla" }
+                "schema": { "$ref": "#/components/schemas/Talla" },
+                "example": { "id": 4, "talla": "XL" }
               }
             },
             "headers": {
@@ -633,7 +786,8 @@
             "description": "Talla encontrada",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Talla" }
+                "schema": { "$ref": "#/components/schemas/Talla" },
+                "example": { "id": 1, "talla": "S" }
               }
             },
             "headers": {
@@ -678,6 +832,12 @@
         "responses": {
           "200": {
             "description": "Talla actualizada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Talla" },
+                "example": { "id": 1, "talla": "S" }
+              }
+            },
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Límite máximo de peticiones permitidas",
@@ -750,7 +910,10 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Oferta" }
-                }
+                },
+                "example": [
+                  { "id": 1, "cliente_id": 1, "camiseta_id": 1, "precio_oferta": 75.05 }
+                ]
               }
             },
             "headers": {
@@ -793,7 +956,8 @@
             "description": "Oferta creada",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Oferta" }
+                "schema": { "$ref": "#/components/schemas/Oferta" },
+                "example": { "id": 2, "cliente_id": 2, "camiseta_id": 2, "precio_oferta": 60.00 }
               }
             },
             "headers": {
@@ -833,7 +997,8 @@
             "description": "Oferta encontrada",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Oferta" }
+                "schema": { "$ref": "#/components/schemas/Oferta" },
+                "example": { "id": 1, "cliente_id": 1, "camiseta_id": 1, "precio_oferta": 75.05 }
               }
             },
             "headers": {
@@ -878,6 +1043,12 @@
         "responses": {
           "200": {
             "description": "Oferta actualizada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Oferta" },
+                "example": { "id": 1, "cliente_id": 1, "camiseta_id": 1, "precio_oferta": 75.05 }
+              }
+            },
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Límite máximo de peticiones permitidas",
