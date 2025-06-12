@@ -110,9 +110,7 @@ class Camiseta {
         return $stmt->rowCount() > 0;
     }
 
-    // funcion para Obtener una camiseta por su código de producto
-    // utilizado en ClienteController::store() para verificar si una camiseta ya existe
-    // y evitar duplicados al asociar camisetas a clientes
+    // GET /camisetas/codigo_producto/{codigo} >> Obtener una camiseta por su código de producto
     public static function findByCodigoProducto($codigo) {
         $db = Database::connect();
         $stmt = $db->prepare("SELECT * FROM camisetas WHERE codigo_producto = ?");
