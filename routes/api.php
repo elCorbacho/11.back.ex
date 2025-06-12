@@ -50,6 +50,13 @@ switch (true) {
         CamisetaController::patch($matches[1]);
         break;
 
+    //===================================================================
+    //GET CAMISETA Y PRECIO FINAL SEGUN CLIENTE Y DESCUENTO
+    //===================================================================
+    // GET /camisetas/{id}/precio-final?cliente_id=nombre_comercial
+    case preg_match('/^\/camisetas\/([\w-]+)\/precio-final$/', $uri, $matches) && $method === 'GET':
+        CamisetaController::showPrecioFinal($matches[1]);
+        break;
 
 
     // Clientes

@@ -229,4 +229,72 @@ class CamisetaController {
             ResponseHelper::error("No se pudo eliminar la camiseta", 400);
         }
     }
+
+    //====================================================================
+    //GET CAMISETA Y PRECIO FINAL SEGUN CLIENTE Y DESCUENTO
+     //===================================================================
+    public static function showPrecioFinal($id) {
+    require_once __DIR__ . '/../models/Cliente.php';
+    require_once __DIR__ . '/../models/Talla.php';
+
+    $camiseta = Camiseta::find($id);
+    if (!$camiseta) {
+        ResponseHelper::error("Camiseta no encontrada", 404);
+        return;
+    }
+
+    // Obtener tallas disponibles
+    $tallas = Talla::findByCamisetaId($id);
+    $tallas_disponibles = [];
+    if ($tallas && is_array($tallas)) {
+        foreach ($tallas as $talla) {
+            $tallas_disponibles[] = $talla['talla'];
+        }
+    }
+
+    // Obtener cliente_id desde query param (debe ser ID numérico)
+    $cliente_id = $_GET['cliente_id'] ?? null;
+    $cliente = null;
+    $porcentaje_oferta = "sin descuento";
+    $precio_inicial = $camiseta['precio'];
+    $precio_final = $precio_inicial;
+
+    if ($cliente_id) {
+        $cliente = Cliente::find($cliente_id); // Buscar por ID
+        if ($cliente) {
+            // Si el cliente tiene porcentaje_oferta y es mayor a 0, mostrarlo
+            if (!empty($cliente['porcentaje_oferta']) && $cliente['porcentaje_oferta'] > 0) {
+                $porcentaje_oferta = $cliente['porcentaje_oferta'];
+            }
+            // Si el cliente es Preferencial y hay precio_oferta, usarlo
+            if ($cliente['categoria'] === 'Preferencial' && !empty($camiseta['precio_oferta'])) {
+                $precio_final = $camiseta['precio_oferta'];
+            }
+            // Si el cliente tiene porcentaje_oferta, úsalo como descuento
+            elseif (!empty($cliente['porcentaje_oferta'])) {
+                $precio_final = $precio_inicial - round($precio_inicial * ($cliente['porcentaje_oferta'] / 100));
+            }
+        }
+    }
+
+    $respuesta = [
+        "id_camiseta" => $camiseta['id'],
+        "titulo" => $camiseta['titulo'],
+        "club" => $camiseta['club'],
+        "tallas_disponibles" => $tallas_disponibles,
+        "tipo" => $camiseta['tipo'],
+        "color" => $camiseta['color'],
+        "PRECIO_INICIAL" => $precio_inicial,
+    ];
+
+    if ($cliente) {
+        $respuesta["id_cliente"] = $cliente['id'];
+        $respuesta["nombre_comercial_cliente"] = $cliente['nombre_comercial'];
+        $respuesta["PORCENTAJE_OFERTA_CLIENTE"] = $porcentaje_oferta;
+    }
+
+    $respuesta["PRECIO_FINAL"] = $precio_final;
+
+    ResponseHelper::json($respuesta);
+    }
 }

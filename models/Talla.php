@@ -40,4 +40,23 @@ class Talla {
         $stmt = $db->prepare("DELETE FROM tallas WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+
+    //====================================================================
+    //GET CAMISETA Y PRECIO FINAL SEGUN CLIENTE Y DESCUENTO
+    //===================================================================
+    public static function findByCamisetaId($camiseta_id) {
+    $db = Database::connect();
+    $stmt = $db->prepare("
+        SELECT t.talla
+        FROM tallas t
+        INNER JOIN camiseta_talla ct ON ct.talla_id = t.id
+        WHERE ct.camiseta_id = ?
+    ");
+    $stmt->execute([$camiseta_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
 }
