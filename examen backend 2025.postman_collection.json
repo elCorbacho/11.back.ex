@@ -2833,7 +2833,7 @@
 					},
 					"response": [
 						{
-							"name": "GET CLIENTE PREFERENCIAL CON OFERTA",
+							"name": "GET CLIENTE PREFERENCIAL CON OFERTA camiseta 20 cliente 1",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -2864,7 +2864,7 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Fri, 13 Jun 2025 00:19:42 GMT"
+									"value": "Fri, 13 Jun 2025 04:49:12 GMT"
 								},
 								{
 									"key": "Server",
@@ -2888,7 +2888,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "266"
+									"value": "263"
 								},
 								{
 									"key": "Keep-Alive",
@@ -2900,14 +2900,14 @@
 								},
 								{
 									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
+									"value": "application/json"
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id_camiseta\": 20,\n    \"id_cliente\": 12,\n    \"titulo\": \"test100\",\n    \"club\": \"test100\",\n    \"tallas_disponibles\": [\n        2,\n        3\n    ],\n    \"tipo\": \"test100\",\n    \"color\": \"test100\",\n    \"PRECIO_INICIAL\": \"100.00\",\n    \"PRECIO_FINAL\": 90,\n    \"categoria_cliente\": \"Preferencial\",\n    \"existe_oferta\": true,\n    \"PORCENTAJE_DESCUENTO_CLIENTE\": 10\n}"
+							"body": "{\n    \"id_camiseta\": 20,\n    \"id_cliente\": 12,\n    \"titulo\": \"test100\",\n    \"club\": \"test100\",\n    \"tallas_disponibles\": [\n        1,\n        4,\n        7\n    ],\n    \"tipo\": \"test100\",\n    \"color\": \"test100\",\n    \"PRECIO_INICIAL\": 100,\n    \"PRECIO_FINAL\": 90,\n    \"categoria_cliente\": \"Preferencial\",\n    \"existe_oferta\": true,\n    \"PORCENTAJE_DESCUENTO_CLIENTE\": 10\n}"
 						},
 						{
-							"name": "GET CLIENTE PREFERENCIAL SIN OFERTA",
+							"name": "GET CLIENTE PREFERENCIAL SIN OFERTA camiseta 20 cliente 2",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -2938,7 +2938,155 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Fri, 13 Jun 2025 02:11:39 GMT"
+									"value": "Fri, 13 Jun 2025 04:49:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+								},
+								{
+									"key": "Content-Length",
+									"value": "230"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=99"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id_camiseta\": 20,\n    \"id_cliente\": 2,\n    \"titulo\": \"test100\",\n    \"club\": \"test100\",\n    \"tallas_disponibles\": [\n        1,\n        4,\n        7\n    ],\n    \"tipo\": \"test100\",\n    \"color\": \"test100\",\n    \"PRECIO_INICIAL\": 100,\n    \"PRECIO_FINAL\": 100,\n    \"categoria_cliente\": \"Preferencial\",\n    \"existe_oferta\": false\n}"
+						},
+						{
+							"name": "GET CLIENTE REGULAR CON OFERTA camiseta 20 cliente 3",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/11.back.ex/api/camisetas/20/precio-final?cliente_id=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"11.back.ex",
+										"api",
+										"camisetas",
+										"20",
+										"precio-final"
+									],
+									"query": [
+										{
+											"key": "cliente_id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 13 Jun 2025 04:49:06 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id_camiseta\": 20,\n    \"id_cliente\": 3,\n    \"titulo\": \"test100\",\n    \"club\": \"test100\",\n    \"tallas_disponibles\": [\n        1,\n        4,\n        7\n    ],\n    \"tipo\": \"test100\",\n    \"color\": \"test100\",\n    \"PRECIO_INICIAL\": 100,\n    \"PRECIO_FINAL\": 100,\n    \"categoria_cliente\": \"Regular\",\n    \"existe_oferta\": true\n}"
+						},
+						{
+							"name": "GET CLIENTE REGULAR SIN OFERTA camiseta 20 cliente 4",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/11.back.ex/api/camisetas/20/precio-final?cliente_id=4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"11.back.ex",
+										"api",
+										"camisetas",
+										"20",
+										"precio-final"
+									],
+									"query": [
+										{
+											"key": "cliente_id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 13 Jun 2025 04:48:59 GMT"
 								},
 								{
 									"key": "Server",
@@ -2966,7 +3114,7 @@
 								},
 								{
 									"key": "Keep-Alive",
-									"value": "timeout=5, max=100"
+									"value": "timeout=5, max=99"
 								},
 								{
 									"key": "Connection",
@@ -2978,81 +3126,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id_camiseta\": 20,\n    \"id_cliente\": 2,\n    \"titulo\": \"test100\",\n    \"club\": \"test100\",\n    \"tallas_disponibles\": [],\n    \"tipo\": \"test100\",\n    \"color\": \"test100\",\n    \"PRECIO_INICIAL\": 100,\n    \"PRECIO_FINAL\": 100,\n    \"categoria_cliente\": \"Preferencial\",\n    \"existe_oferta\": false\n}"
-						},
-						{
-							"name": "GET CLIENTE REGULAR CON OFERTA",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost/11.back.ex/api/camisetas/20/precio-final?cliente_id=1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"path": [
-										"11.back.ex",
-										"api",
-										"camisetas",
-										"20",
-										"precio-final"
-									],
-									"query": [
-										{
-											"key": "cliente_id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Fri, 13 Jun 2025 00:20:07 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "PHP/8.2.12"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-								},
-								{
-									"key": "Content-Length",
-									"value": "232"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5, max=100"
-								},
-								{
-									"key": "Connection",
-									"value": "Keep-Alive"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id_camiseta\": 20,\n    \"id_cliente\": 1,\n    \"titulo\": \"test100\",\n    \"club\": \"test100\",\n    \"tallas_disponibles\": [\n        2,\n        3\n    ],\n    \"tipo\": \"test100\",\n    \"color\": \"test100\",\n    \"PRECIO_INICIAL\": \"100.00\",\n    \"PRECIO_FINAL\": \"100.00\",\n    \"categoria_cliente\": \"Regular\",\n    \"existe_oferta\": true\n}"
+							"body": "{\n    \"id_camiseta\": 20,\n    \"id_cliente\": 4,\n    \"titulo\": \"test100\",\n    \"club\": \"test100\",\n    \"tallas_disponibles\": [\n        1,\n        4,\n        7\n    ],\n    \"tipo\": \"test100\",\n    \"color\": \"test100\",\n    \"PRECIO_INICIAL\": 100,\n    \"PRECIO_FINAL\": 100,\n    \"categoria_cliente\": \"Regular\",\n    \"existe_oferta\": false\n}"
 						},
 						{
 							"name": "GET CON ID NO EXISTENTE",
