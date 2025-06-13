@@ -29,11 +29,10 @@ class Oferta {
 
     public static function create($data) {
         $db = Database::connect();
-        $stmt = $db->prepare("INSERT INTO ofertas (cliente_id, camiseta_id, precio_oferta) VALUES (?, ?, ?)");
+        $stmt = $db->prepare("INSERT INTO ofertas (cliente_id, camiseta_id) VALUES (?, ?)");
         $stmt->execute([
             $data['cliente_id'],
-            $data['camiseta_id'],
-            $data['precio_oferta']
+            $data['camiseta_id']
         ]);
         return self::find($db->lastInsertId());
     }
@@ -41,11 +40,10 @@ class Oferta {
     // POST /ofertas >> Crear una nueva oferta
     public static function update($id, $data) {
         $db = Database::connect();
-        $stmt = $db->prepare("UPDATE ofertas SET cliente_id = ?, camiseta_id = ?, precio_oferta = ? WHERE id = ?");
+        $stmt = $db->prepare("UPDATE ofertas SET cliente_id = ?, camiseta_id = ? WHERE id = ?");
         $updated = $stmt->execute([
             $data['cliente_id'],
             $data['camiseta_id'],
-            $data['precio_oferta'],
             $id
         ]);
         if ($updated) {
@@ -55,6 +53,13 @@ class Oferta {
     }
 
     // DELETE /ofertas/{id} >> Eliminar una oferta por su ID
+    public static function delete($id) {
+        $db = Database::connect();
+        $stmt = $db->prepare("DELETE FROM ofertas WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->rowCount() > 0;
+    }
+
     public static function existeOfertaPorCliente($cliente_id) {
         $db = Database::connect();
         $stmt = $db->prepare("SELECT COUNT(*) as total FROM ofertas WHERE cliente_id = ?");

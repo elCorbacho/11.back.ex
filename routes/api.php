@@ -119,24 +119,31 @@ switch (true) {
     // Ofertas
     //=============================================
     //metodo GET para obtener todas las ofertas
+    // endpoint /ofertas
     case preg_match('/^\/ofertas$/', $uri) && $method === 'GET':
         OfertaController::index();
         break;
 
     //metodo GET para obtener una oferta por su id
+    // endpoint /ofertas/{id}
     case preg_match('/^\/ofertas\/([\w-]+)$/', $uri, $matches) && $method === 'GET':
         OfertaController::show($matches[1]);
         break;
+        
     //metodo POST para crear una nueva oferta
+    // endpoint /ofertas
     case preg_match('/^\/ofertas$/', $uri) && $method === 'POST':
         OfertaController::store();
         break;
 
     //metodo PUT para actualizar una oferta por su id
+    // endpoint /ofertas/{id}
     case preg_match('/^\/ofertas\/([\w-]+)$/', $uri, $matches) && $method === 'PUT':
         OfertaController::update($matches[1]);
         break;
+
     //metodo DELETE para eliminar una oferta por su id
+    // endpoint /ofertas/{id}
     case preg_match('/^\/ofertas\/([\w-]+)$/', $uri, $matches) && $method === 'DELETE':
         OfertaController::destroy($matches[1]);
         break;
