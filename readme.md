@@ -1,160 +1,184 @@
 # Proyecto API Camisetas
 
-## 📁 Estructura del Proyecto (comentada)
+API RESTful para la gestión de camisetas, clientes, tallas y ofertas. Pensada para evaluación backend IPSS CIISA 06-2025.
+
+## 📁 Estructura del Proyecto
 
 ```
 11.back.ex/
 │
-├── api/                        # Carpeta para endpoints RESTful (si usas subrutas físicas)
-│   ├── camisetas/              # (Opcional) Subcarpeta para endpoints de camisetas
-│   ├── clientes/               # (Opcional) Subcarpeta para endpoints de clientes
-│   ├── tallas/                 # (Opcional) Subcarpeta para endpoints de tallas
-│   ├── ofertas/                # (Opcional) Subcarpeta para endpoints de ofertas
-│   └── ...otros recursos
+├── config/                     # Configuración de la base de datos
+│   └── database.php            # Archivo de conexión PDO
 │
-├── config/                     # Configuración de la base de datos y otros parámetros
-│   └── database.php            # Archivo de conexión a la base de datos
-│
-├── controllers/                # Controladores de la lógica de negocio para cada recurso
-│   ├── CamisetaController.php  # Controlador para camisetas
-│   ├── ClienteController.php   # Controlador para clientes
-│   ├── TallaController.php     # Controlador para tallas
-│   ├── OfertaController.php    # Controlador para ofertas
-│   └── ...otros controladores
+├── controllers/                # Lógica de negocio para cada recurso
+│   ├── CamisetaController.php  # Camisetas
+│   ├── ClienteController.php   # Clientes
+│   ├── TallaController.php     # Tallas
+│   ├── OfertaController.php    # Ofertas
 │
 ├── models/                     # Modelos de acceso a datos (ORM manual)
-│   ├── Camiseta.php            # Modelo de camisetas
-│   ├── Cliente.php             # Modelo de clientes
-│   ├── Talla.php               # Modelo de tallas
-│   ├── Oferta.php              # Modelo de ofertas
-│   └── ...otros modelos
+│   ├── Camiseta.php            # Modelo camisetas
+│   ├── Cliente.php             # Modelo clientes
+│   ├── Talla.php               # Modelo tallas
+│   ├── Oferta.php              # Modelo ofertas
 │
-├── helpers/                    # Funciones auxiliares y utilidades
-│   ├── ResponseHelper.php      # Helper para respuestas JSON y manejo de errores
-│   ├── TallaHelper.php         # Helper para validaciones de tallas
-│   └── ...otros helpers
+├── helpers/                    # Funciones auxiliares
+│   ├── ResponseHelper.php      # Helper para respuestas JSON y errores
+│   ├── TallaHelper.php         # Validaciones de tallas
 │
 ├── routes/                     # Definición de rutas y dispatch principal
 │   └── api.php                 # Archivo principal de rutas de la API
 │
-├── public/                     # Carpeta pública para el punto de entrada de la API
-│   └── index.php               # Front controller (entry point)
+├── swagger.json                # Documentación OpenAPI/Swagger de la API
 │
-├── sql_base_jesus/             # Scripts SQL para crear y poblar la base de datos
+├── swagger-ui/                 # Interfaz visual para probar la API (Swagger UI)
+│   ├── index.html              # Frontend Swagger UI
+│   └── ...archivos estáticos
+│
+├── sql_tablas_poblar/             # Scripts SQL para crear y poblar la base de datos
 │   └── Script_crea_ddbb_creatablas.sql
+│   └── Script_Poblado_todocamisetas.sql
 │
-├── vendor/                     # Dependencias externas (si usas Composer)
-│   └── ...dependencias
-│
-├── .htaccess                   # Configuración de Apache para URLs amigables
-├── composer.json               # Configuración de Composer (si aplica)
-└── readme.md                   # Este archivo de documentación
+├── index.php                   # Front controller (entry point)
+├── readme.md                   # Este archivo
 ```
 
----
+## 📝 Notas importantes
 
-**Explicación de carpetas principales:**
+- **Tallas**: Siempre se manejan por ID (array de enteros), tanto en entrada como en salida.
+- **Ofertas**: Solo tiene los campos `id`, `cliente_id`, `camiseta_id`. No existe el campo `precio_oferta`.
+- **Descuentos**: El endpoint `/camisetas/{id}/precio-final?cliente_id=...` valida existencia de camiseta y cliente, y aplica descuento solo si el cliente es Preferencial y existe oferta.
+- **Validaciones**: No se pueden crear ofertas duplicadas para el mismo cliente y camiseta. Todos los endpoints validan correctamente los datos obligatorios y las relaciones.
+- **Documentación**: La documentación OpenAPI/Swagger (`swagger.json`) está alineada con la estructura real de la API.
 
-- **api/**: (Opcional) Puedes organizar aquí subrutas físicas si tu estructura lo requiere.
-- **config/**: Configuración de la base de datos y otros parámetros globales.
-- **controllers/**: Lógica de negocio y manejo de peticiones HTTP para cada recurso.
-- **models/**: Acceso a la base de datos y lógica de datos para cada entidad.
-- **helpers/**: Funciones auxiliares reutilizables (validaciones, respuestas, etc).
-- **routes/**: Archivo principal de rutas y dispatch de la API.
-- **public/**: Punto de entrada de la aplicación (index.php).
-- **sql_base_jesus/**: Scripts SQL para crear y poblar la base de datos.
-- **vendor/**: Dependencias externas instaladas con Composer (si aplica).
-- **.htaccess**: Para URLs amigables y redirección a index.php.
-- **composer.json**: Archivo de configuración de Composer.
-- **readme.md**: Documentación del proyecto.
-
----
-
-**Recomendación:**  
-Mantén esta estructura para facilitar el mantenimiento, escalabilidad y comprensión del proyecto por parte de otros desarrolladores.
-
----
-
-## 🚀 Cómo Empezar
-
-1. **Clona o copia el proyecto** en la carpeta `htdocs` de XAMPP.
-2. **Asegúrate de tener Apache y MySQL activos** desde el panel de XAMPP.
-3. **Importa el script SQL** de la carpeta `/sql_base_jesus` para crear las tablas necesarias.
-4. Accede a la API desde:  
-   `http://localhost/11.back.ex/api/`
-
----
-
-## 📚 Endpoints Disponibles
-
-Todos los endpoints están bajo el prefijo `/api`.
+## 📚 Endpoints disponibles
 
 ### Camisetas
-
-| Método | Endpoint                                 | Descripción                                                        |
-|--------|------------------------------------------|--------------------------------------------------------------------|
-| GET    | `/api/camisetas`                        | Lista todas las camisetas                                          |
-| GET    | `/api/camisetas/{id}`                   | Obtiene una camiseta por su ID                                     |
-| POST   | `/api/camisetas`                        | Crea una nueva camiseta                                            |
-| PUT    | `/api/camisetas/{id}`                   | Actualiza completamente una camiseta                               |
-| PATCH  | `/api/camisetas/{id}`                   | Actualiza parcialmente una camiseta                                |
-| DELETE | `/api/camisetas/{id}`                   | Elimina una camiseta                                               |
-| GET    | `/api/camisetas/{id}/precio-final?cliente_id={id}` | Obtiene el precio final de una camiseta para un cliente específico |
-
-#### Notas para camisetas:
-- Para crear o actualizar una camiseta, debes enviar todos los campos obligatorios y un array de tallas por nombre, por ejemplo:  
-  `"tallas": ["S", "M", "L"]`
-- Solo se aceptan las tallas: **S, M, L, XL, XXL, XXXL**.
-- El método PATCH permite actualizar solo los campos que envíes en el body.
-- El endpoint `/api/camisetas/{id}/precio-final?cliente_id={id}` calcula el precio final considerando ofertas personalizadas y porcentaje de descuento del cliente.
+- `GET    /camisetas`                        → Lista todas las camisetas
+- `GET    /camisetas/{id}`                   → Obtiene una camiseta por su ID
+- `POST   /camisetas`                        → Crea una nueva camiseta
+- `PUT    /camisetas/{id}`                   → Actualiza completamente una camiseta
+- `PATCH  /camisetas/{id}`                   → Actualiza parcialmente una camiseta
+- `DELETE /camisetas/{id}`                   → Elimina una camiseta
+- `GET    /camisetas/{id}/precio-final?cliente_id={id}` → Obtiene el precio final de una camiseta para un cliente específico
 
 ### Clientes
-
-| Método | Endpoint                  | Descripción                        |
-|--------|---------------------------|------------------------------------|
-| GET    | `/api/clientes`           | Lista todos los clientes           |
-| GET    | `/api/clientes/{id}`      | Obtiene un cliente por su ID       |
-| POST   | `/api/clientes`           | Crea un nuevo cliente              |
-| PUT    | `/api/clientes/{id}`      | Actualiza un cliente existente     |
-| PATCH  | `/api/clientes/{id}`      | Actualiza parcialmente un cliente  |
-| DELETE | `/api/clientes/{id}`      | Elimina un cliente (solo si no tiene ofertas asociadas) |
+- `GET    /clientes`                         → Lista todos los clientes
+- `GET    /clientes/{id}`                    → Obtiene un cliente por su ID
+- `POST   /clientes`                         → Crea un nuevo cliente
+- `PUT    /clientes/{id}`                    → Actualiza un cliente existente
+- `PATCH  /clientes/{id}`                    → Actualiza parcialmente un cliente
+- `DELETE /clientes/{id}`                    → Elimina un cliente (solo si no tiene ofertas asociadas)
 
 ### Tallas
-
-| Método | Endpoint                  | Descripción                        |
-|--------|---------------------------|------------------------------------|
-| GET    | `/api/tallas`             | Lista todas las tallas             |
-| GET    | `/api/tallas/{id}`        | Obtiene una talla por su ID        |
-| POST   | `/api/tallas`             | Crea una nueva talla               |
-| PUT    | `/api/tallas/{id}`        | Actualiza una talla existente      |
-| DELETE | `/api/tallas/{id}`        | Elimina una talla                  |
+- `GET    /tallas`                           → Lista todas las tallas
+- `GET    /tallas/{id}`                      → Obtiene una talla por su ID
+- `POST   /tallas`                           → Crea una nueva talla
+- `PUT    /tallas/{id}`                      → Actualiza una talla existente
+- `DELETE /tallas/{id}`                      → Elimina una talla
 
 ### Ofertas
+- `GET    /ofertas`                          → Lista todas las ofertas
+- `GET    /ofertas/{id}`                     → Obtiene una oferta por su ID
+- `POST   /ofertas`                          → Crea una nueva oferta
+- `PUT    /ofertas/{id}`                     → Actualiza una oferta existente
+- `DELETE /ofertas/{id}`                     → Elimina una oferta
 
-| Método | Endpoint                  | Descripción                        |
-|--------|---------------------------|------------------------------------|
-| GET    | `/api/ofertas`            | Lista todas las ofertas            |
-| GET    | `/api/ofertas/{id}`       | Obtiene una oferta por su ID       |
-| POST   | `/api/ofertas`            | Crea una nueva oferta              |
-| PUT    | `/api/ofertas/{id}`       | Actualiza una oferta existente     |
-| DELETE | `/api/ofertas/{id}`       | Elimina una oferta                 |
+## 📦 Ejemplo de request/response
+
+### Crear camiseta (POST /camisetas)
+```json
+{
+  "titulo": "Camiseta Oficial Uruguay 2024",
+  "club": "Uruguay",
+  "pais": "Uruguay",
+  "tipo": "Oficial",
+  "color": "Celeste",
+  "precio": 79.00,
+  "detalles": "Edición Copa América 2024",
+  "codigo_producto": "URU-2024",
+  "tallas": [1, 2, 3]
+}
+```
+
+### Respuesta ejemplo
+```json
+{
+  "id": 1,
+  "titulo": "Camiseta Oficial Uruguay 2024",
+  "club": "Uruguay",
+  "pais": "Uruguay",
+  "tipo": "Oficial",
+  "color": "Celeste",
+  "precio": 79.00,
+  "detalles": "Edición Copa América 2024",
+  "codigo_producto": "URU-2024",
+  "tallas": [1, 2, 3]
+}
+```
+
+### Precio final (GET /camisetas/{id}/precio-final?cliente_id=...)
+```json
+{
+  "id_camiseta": 1,
+  "titulo": "Camiseta Oficial Uruguay 2024",
+  "club": "Uruguay",
+  "tallas_disponibles": [1, 2, 3],
+  "tipo": "Oficial",
+  "color": "Celeste",
+  "PRECIO_INICIAL": 79.00,
+  "id_cliente": 1,
+  "categoria_cliente": "Preferencial",
+  "PRECIO_FINAL": 75.05,
+  "existe_oferta": true,
+  "PORCENTAJE_DESCUENTO_CLIENTE": 5.00
+}
+```
+
+## 🚀 Cómo probar la API
+
+1. Importa el archivo `swagger.json` en [Swagger Editor](https://editor.swagger.io/) o abre `swagger-ui/index.html` en tu navegador.
+2. Usa Postman, Insomnia o curl para probar los endpoints.
+3. Consulta los scripts SQL en `sql_tablas_poblar/` para crear y poblar la base de datos.
+
+## 🗄️ Scripts SQL: creación y poblamiento de la base de datos
+
+Los scripts SQL necesarios para crear y poblar la base de datos se encuentran en la carpeta `sql_tablas_poblar/`.
+
+### 1. Script_crea_ddbb_creatablas.sql
+- **Propósito:** Crea la base de datos y todas las tablas necesarias para la API.
+- **Tablas creadas:**
+  - `clientes`: Almacena los datos de los clientes (id, nombre, rut, categoria).
+  - `tallas`: Almacena las tallas disponibles (id, nombre).
+  - `camisetas`: Almacena las camisetas (id, titulo, club, pais, tipo, color, precio, detalles, codigo_producto).
+  - `camiseta_talla`: Tabla intermedia para la relación muchos a muchos entre camisetas y tallas (camiseta_id, talla_id).
+  - `ofertas`: Almacena las ofertas (id, cliente_id, camiseta_id).
+- **Relaciones foráneas:**
+  - `camiseta_talla.camiseta_id` → `camisetas.id`
+  - `camiseta_talla.talla_id` → `tallas.id`
+  - `ofertas.cliente_id` → `clientes.id`
+  - `ofertas.camiseta_id` → `camisetas.id`
+- **Cómo usarlo:**
+  1. Abre tu gestor de base de datos (por ejemplo, phpMyAdmin o consola MySQL).
+  2. Ejecuta el script `Script_crea_ddbb_creatablas.sql` para crear la base de datos y las tablas.
+
+### 2. Script_Poblado_todocamisetas.sql
+- **Propósito:** Inserta datos de ejemplo en todas las tablas para pruebas y desarrollo.
+- **Contenido:**
+  - Inserta clientes de ejemplo.
+  - Inserta tallas estándar.
+  - Inserta camisetas de ejemplo.
+  - Inserta relaciones entre camisetas y tallas.
+  - Inserta ofertas de ejemplo.
+- **Cómo usarlo:**
+  1. Una vez creadas las tablas, ejecuta el script `Script_Poblado_todocamisetas.sql` para poblar la base de datos con datos de prueba.
+
+### 3. Scripts adicionales (opcional)
+- En la carpeta `sql_testing_adicional/` puedes encontrar scripts para pruebas automatizadas o datos alternativos.
+
+**Recomendación:** Ejecuta primero el script de creación de tablas y luego el de poblamiento. Si necesitas reiniciar la base de datos, puedes borrar todas las tablas y volver a ejecutar ambos scripts en orden.
 
 ---
 
-## ℹ️ Notas
-
-- Todas las respuestas están en formato **JSON**.
-- Puedes probar los endpoints con [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/).
-- Si mueves el proyecto a otra subcarpeta, asegúrate de acceder usando la ruta correcta en el navegador o Postman.
-- Si necesitas agregar autenticación o más recursos, puedes extender la estructura fácilmente.
-- **No se puede eliminar un cliente si tiene ofertas asociadas a camisetas.**
-
----
-
-## 👨‍💻 Autor
-
-Desarrollado por [Tu Nombre o Equipo].  
-¡Contribuciones y sugerencias son bienvenidas!
-
-https://deepwiki.com/elCorbacho/11.back.ex
+Desarrollado para fines académicos. Si tienes dudas o sugerencias, revisa la documentación o contacta al autor.
 
