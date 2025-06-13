@@ -182,3 +182,8 @@ Los scripts SQL necesarios para crear y poblar la base de datos se encuentran en
 
 Desarrollado para fines académicos. Si tienes dudas o sugerencias, revisa la documentación o contacta al autor.
 
+
+## INFORMACION DETALLADA DE API ##
+https://deepwiki.com/elCorbacho/11.back.ex
+
+
