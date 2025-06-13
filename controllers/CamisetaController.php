@@ -185,59 +185,63 @@ class CamisetaController {
     public static function showPrecioFinal($id) {
         require_once __DIR__ . '/../models/Cliente.php';
         require_once __DIR__ . '/../models/Talla.php';
+        require_once __DIR__ . '/../models/Oferta.php';
 
+        // Validar existencia de camiseta
         $camiseta = Camiseta::find($id);
         if (!$camiseta) {
             ResponseHelper::error("Camiseta no encontrada", 404);
             return;
         }
 
-        // Obtener tallas disponibles como IDs
-        $tallas_disponibles = Talla::findByCamisetaId($id);
-
         // Obtener cliente_id desde query param (debe ser ID numérico)
         $cliente_id = $_GET['cliente_id'] ?? null;
-        $cliente = null;
-        $porcentaje_oferta = "sin descuento";
-        $precio_inicial = $camiseta['precio'];
-        $precio_final = $precio_inicial;
+        if (!$cliente_id) {
+            ResponseHelper::error("Debes indicar el cliente_id en el query param", 400);
+            return;
+        }
+        $cliente = Cliente::find($cliente_id);
+        if (!$cliente) {
+            ResponseHelper::error("Cliente no encontrado", 404);
+            return;
+        }
 
-        if ($cliente_id) {
-            $cliente = Cliente::find($cliente_id); // Buscar por ID
-            if ($cliente) {
-                // Si el cliente tiene porcentaje_oferta y es mayor a 0, mostrarlo
-                if (!empty($cliente['porcentaje_oferta']) && $cliente['porcentaje_oferta'] > 0) {
-                    $porcentaje_oferta = $cliente['porcentaje_oferta'];
-                }
-                // Si el cliente es Preferencial y hay precio_oferta, usarlo
-                if ($cliente['categoria'] === 'Preferencial' && !empty($camiseta['precio_oferta'])) {
-                    $precio_final = $camiseta['precio_oferta'];
-                }
-                // Si el cliente tiene porcentaje_oferta, úsalo como descuento
-                elseif (!empty($cliente['porcentaje_oferta'])) {
-                    $precio_final = $precio_inicial - round($precio_inicial * ($cliente['porcentaje_oferta'] / 100));
-                }
+        // Obtener tallas disponibles como IDs
+        $tallas_disponibles = Talla::findByCamisetaId($id);
+        $precio_base = $camiseta['precio'];
+        $precio_final = $precio_base;
+        $porcentaje_descuento = null;
+        $oferta = Oferta::findByClienteYCamiseta($cliente_id, $id);
+
+        if ($cliente['categoria'] === 'Preferencial' && $oferta) {
+            // Si hay oferta, aplicar descuento del cliente preferencial
+            $porcentaje_descuento = floatval($cliente['porcentaje_oferta'] ?? 0);
+            if ($porcentaje_descuento > 0) {
+                $precio_final = round($precio_base * (1 - $porcentaje_descuento / 100), 2);
+            } else {
+                $precio_final = $precio_base;
             }
+        } else {
+            // Si es regular o no hay oferta, precio base
+            $precio_final = $precio_base;
         }
 
         $respuesta = [
             "id_camiseta" => $camiseta['id'],
+            "id_cliente" => $cliente['id'],
             "titulo" => $camiseta['titulo'],
             "club" => $camiseta['club'],
             "tallas_disponibles" => $tallas_disponibles,
             "tipo" => $camiseta['tipo'],
             "color" => $camiseta['color'],
-            "PRECIO_INICIAL" => $precio_inicial,
+            "PRECIO_INICIAL" => $precio_base,
+            "PRECIO_FINAL" => $precio_final,
+            "categoria_cliente" => $cliente['categoria'],
+            "existe_oferta" => $oferta ? true : false,
         ];
-
-        if ($cliente) {
-            $respuesta["id_cliente"] = $cliente['id'];
-            $respuesta["nombre_comercial_cliente"] = $cliente['nombre_comercial'];
-            $respuesta["PORCENTAJE_OFERTA_CLIENTE"] = $porcentaje_oferta;
+        if ($porcentaje_descuento !== null) {
+            $respuesta["PORCENTAJE_DESCUENTO_CLIENTE"] = $porcentaje_descuento;
         }
-
-        $respuesta["PRECIO_FINAL"] = $precio_final;
-
         ResponseHelper::json($respuesta);
     }
 }
