@@ -231,7 +231,7 @@ class CamisetaController {
             "id_cliente" => $cliente['id'],
             "titulo" => $camiseta['titulo'],
             "club" => $camiseta['club'],
-            "tallas_disponibles" => $tallas_disponibles,
+            "tallas_disponibles" => array_map('intval', array_values($tallas_disponibles)),
             "tipo" => $camiseta['tipo'],
             "color" => $camiseta['color'],
             "PRECIO_INICIAL" => $precio_base,
@@ -242,6 +242,9 @@ class CamisetaController {
         if ($porcentaje_descuento !== null) {
             $respuesta["PORCENTAJE_DESCUENTO_CLIENTE"] = $porcentaje_descuento;
         }
-        ResponseHelper::json($respuesta);
+        // Forzar salida compacta y sin saltos de línea
+        header('Content-Type: application/json');
+        echo json_encode($respuesta, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
+        exit;
     }
 }

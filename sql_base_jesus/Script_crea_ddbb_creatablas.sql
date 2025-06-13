@@ -46,7 +46,6 @@ CREATE TABLE ofertas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT,
     camiseta_id INT,
-    precio_oferta DECIMAL(10,2),
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
     FOREIGN KEY (camiseta_id) REFERENCES camisetas(id) ON DELETE CASCADE
 );

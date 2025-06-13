@@ -19,6 +19,7 @@ class Oferta {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+
     public static function create($data) {
         $db = Database::connect();
         $stmt = $db->prepare("INSERT INTO ofertas (cliente_id, camiseta_id, precio_oferta) VALUES (?, ?, ?)");
@@ -53,13 +54,5 @@ class Oferta {
         $stmt->execute([$cliente_id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row && $row['total'] > 0;
-    }
-
-    // Buscar una oferta por cliente y camiseta
-    public static function findByClienteYCamiseta($cliente_id, $camiseta_id) {
-        $db = Database::connect();
-        $stmt = $db->prepare("SELECT * FROM ofertas WHERE cliente_id = ? AND camiseta_id = ? LIMIT 1");
-        $stmt->execute([$cliente_id, $camiseta_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 }

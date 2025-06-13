@@ -39,10 +39,10 @@ INSERT INTO camiseta_talla (camiseta_id, talla_id) VALUES
 (6, 1), (6, 2), (6, 3), (6, 4); -- Argentina S, M, L, XL
 
 -- Poblar tabla ofertas (ofertas especiales para clientes y camisetas)
-INSERT INTO ofertas (cliente_id, camiseta_id, precio_oferta) VALUES
-(1, 1, 80.00), -- Deportes Plus tiene oferta para Barcelona
-(2, 3, 68.00), -- Camisetas Pro para Brasil
-(3, 5, 60.00), -- Ropa Sport para ManU Retro
-(4, 2, 65.00), -- Fashion Team para Real Madrid Replica
-(5, 6, 75.00), -- Deportes Activos para Argentina Local
-(6, 4, 55.00); -- Elite Camisetas para Juventus Entrenamiento
+INSERT INTO ofertas (cliente_id, camiseta_id) VALUES
+(1, 1), -- Deportes Plus tiene oferta para Barcelona
+(2, 3), -- Camisetas Pro para Brasil
+(3, 5), -- Ropa Sport para ManU Retro
+(4, 2), -- Fashion Team para Real Madrid Replica
+(5, 6), -- Deportes Activos para Argentina Local
+(6, 4); -- Elite Camisetas para Juventus Entrenamiento
