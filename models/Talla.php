@@ -62,4 +62,12 @@ class Talla {
 
 
 
+    // Buscar una talla por nombre
+    public static function findByNombre($nombre) {
+        $db = Database::connect();
+        $stmt = $db->prepare("SELECT * FROM tallas WHERE talla = ? LIMIT 1");
+        $stmt->execute([$nombre]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
+
 }
