@@ -137,7 +137,7 @@ API RESTful para la gestión de camisetas, clientes, tallas y ofertas. Pensada p
 
 ## 🚀 Cómo probar la API
 
-1. Importa el archivo `swagger.json` en [Swagger Editor](https://editor.swagger.io/) o abre `swagger-ui/index.html` en tu navegador.
+1. Importa el archivo `swagger.json` en [Swagger Editor](https://editor.swagger.io/) o abre `http://localhost/11.back.ex/swagger-ui/index.html` en tu navegador.
 2. Usa Postman, Insomnia o curl para probar los endpoints.
 3. Consulta los scripts SQL en `sql_tablas_poblar/` para crear y poblar la base de datos.
 
